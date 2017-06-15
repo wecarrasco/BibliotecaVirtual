@@ -1,4 +1,4 @@
-var libro = require("../schemas/libro");
+var libro = require("../Schemas/libro");
 var mongoose = require ("mongoose");
 
 //Obtener los libros
@@ -43,6 +43,21 @@ exports.getLibroTitulo = {
 exports.getLibroAutor = {
   handler : function(req, res){
     libro.find({"autor" : req.params.autor}, function(err, Libro){
+      if (!err && Libro) {
+        return res(Libro);
+      }else if (!err) {
+        return res(boom.notFound());
+      }else if (err) {
+        return res(boom.wrap(err, "Libros no encontrados"));
+      }
+    });
+  }
+}
+
+//Obtener libros por genero
+exports.getLibroGenero = {
+  handler: function(req, res){
+    libro.find({"genero": req.params.autor}, function(err, Libro){
       if (!err && Libro) {
         return res(Libro);
       }else if (!err) {
@@ -127,7 +142,7 @@ exports.modificarLibro = {
 
 
 //Crear un libro
-exports.crearLibro{
+exports.crearLibro = {
   handler: function(req, res){
     var libroNuevo = new libro({
       titulo : request.payload.titulo,

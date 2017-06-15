@@ -14,6 +14,7 @@ server.connection({
   }
 });
 
+mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://admin:admin@ds127132.mlab.com:27132/biblioteca");
 
 var db = mongoose.connection;

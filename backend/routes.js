@@ -10,12 +10,12 @@ exports.endpoints=[
   },
   {
     method: "GET",
-    path: "./libros/ID/{id}",
+    path: "/libros/ID/{id}",
     config: librosController.getLibroId
   },
   {
     method: "GET",
-    path: "./libros/titulo/{titulo}",
+    path: "/libros/titulo/{titulo}",
     config: librosController.getLibroTitulo
   },
   {
@@ -76,5 +76,11 @@ exports.endpoints=[
 	{
     method: 'GET',
     path: '/users/logout',
-    config: authController.logout}
+    config: authController.logout
+  },
+  {
+    method: "GET",
+    path: "/users",
+    config: usuarioController.getUsuarios
+  }
 ]
