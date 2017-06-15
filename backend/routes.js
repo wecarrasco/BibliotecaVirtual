@@ -1,4 +1,6 @@
 var librosController = require("./controllers/librosController");
+var usuarioController = require("./controllers/usuarioController");
+var authController = require('./controllers/authController');
 
 exports.endpoints=[
   {
@@ -55,5 +57,24 @@ exports.endpoints=[
 			method: 'POST',
 			path: '/libros/crear',
 			config: librosController.crearLibro
- 	}
+ 	},
+  // {
+  //   method: "GET",
+  //   path: "/users",
+  //   config: usuarioController.getUsuarios
+  // },
+  {
+    method: "POST",
+    path: "/users/registro",
+    config: usuarioController.crearUsuario
+  },
+  {
+    method: 'POST',
+    path: '/users/login',
+    config: authController.login
+  },
+	{
+    method: 'GET',
+    path: '/users/logout',
+    config: authController.logout}
 ]

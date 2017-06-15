@@ -5,7 +5,7 @@ var mongoose = require ("mongoose");
 exports.getLibros = {
   handler: function(req, res){
     var libros = libro.find({});
-    reply(libros);
+    res(libros);
   }
 }
 
@@ -14,11 +14,11 @@ exports.getLibroId = {
   handler: function(req, res){
     libro.findOne({'_id' : req.params.id}, function(err, Libro){
       if (!err && Libro) {
-        return reply(Libro);
+        return res(Libro);
       }else if (!err) {
-        return reply(boom.notFound());
+        return res(boom.notFound());
       }else if (err) {
-        return reply(boom.wrap(err, "Libro no encontrado"));
+        return res(boom.wrap(err, "Libro no encontrado"));
       }
     });
   }
@@ -29,11 +29,11 @@ exports.getLibroTitulo = {
   handler : function(req, res){
     libro.findOne({"titulo" : req.params.titulo}, function(err, Libro){
       if (!err && Libro) {
-        return reply(Libro);
+        return res(Libro);
       }else if (!err) {
-        return reply(boom.notFound());
+        return res(boom.notFound());
       }else if (err) {
-        return reply(boom.wrap(err, "Libro no encontrado"));
+        return res(boom.wrap(err, "Libro no encontrado"));
       }
     });
   }
@@ -44,11 +44,11 @@ exports.getLibroAutor = {
   handler : function(req, res){
     libro.find({"autor" : req.params.autor}, function(err, Libro){
       if (!err && Libro) {
-        return reply(Libro);
+        return res(Libro);
       }else if (!err) {
-        return reply(boom.notFound());
+        return res(boom.notFound());
       }else if (err) {
-        return reply(boom.wrap(err, "Libros no encontrados"));
+        return res(boom.wrap(err, "Libros no encontrados"));
       }
     });
   }
@@ -59,11 +59,11 @@ exports.getLibroPrestado = {
   handler : function(req, res){
     libro.find({"prestado" : 1}, function(err, Libro){
       if (!err && Libro) {
-        return reply(Libro);
+        return res(Libro);
       }else if (!err) {
-        return reply(boom.notFound());
+        return res(boom.notFound());
       }else if (err) {
-        return reply(boom.wrap(err, "Libros no encontrados"));
+        return res(boom.wrap(err, "Libros no encontrados"));
       }
     })
   }
@@ -84,15 +84,15 @@ exports.putLibroPrestar = {
             }
           }, function(err){
             if (err) {
-              return reply(boom.wrap(err, "Libro no encontrado"));
+              return res(boom.wrap(err, "Libro no encontrado"));
             }else {
-              return reply("Prestado satisfactoriamente");
+              return res("Prestado satisfactoriamente");
             }
           });
         }else if(!err){
-          return reply(boom.notFound());
+          return res(boom.notFound());
         }else if(err){
-          return reply(boom.wrap(err, 'Libro no encontrado'));
+          return res(boom.wrap(err, 'Libro no encontrado'));
         }
       }
     );
@@ -116,9 +116,9 @@ exports.modificarLibro = {
         }
       }, function(err){
         if (err) {
-          return reply(boom.wrap(err, "Libro no encontrado"));
+          return res(boom.wrap(err, "Libro no encontrado"));
         }else{
-          return reply("Actualizado satisfactoriamente")
+          return res("Actualizado satisfactoriamente")
         }
       }
     );
@@ -143,11 +143,11 @@ exports.crearLibro{
     });
     libroNuevo.save(function(err){
       if (!err) {
-        return reply({
+        return res({
           success:true
         });
       }else{
-        return reply({
+        return res({
           success:false
         })
       }
@@ -160,11 +160,11 @@ exports.eliminarLibro ={
   handler : function(req, res){
     libro.findOne({"_id" : req.params.id}, function(err, Libro){
       if (err) {
-        return reply(boom.badRequest("No se pudo eliminar el libro"));
+        return res(boom.badRequest("No se pudo eliminar el libro"));
       }else if (!err) {
-        return reply(boom.notFound());
+        return res(boom.notFound());
       }else if (!err && Libro) {
-        return reply("Libro eliminado satisfactoriamente");
+        return res("Libro eliminado satisfactoriamente");
       }
     });
   }
